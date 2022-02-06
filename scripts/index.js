@@ -38,6 +38,7 @@ let profileSubtitle = document.querySelector('.profile__subtitle')
 
 let clickButton = document.querySelector('.popup__button-save')
 
+
 function formSubmitHandler (event) {
     event.preventDefault();
     profileTitle.textContent = nameInput.value;
@@ -45,4 +46,4 @@ function formSubmitHandler (event) {
     closePopup()
 }
 
-clickButton.addEventListener('click', formSubmitHandler);
+popupContainer.addEventListener('submit', formSubmitHandler);
