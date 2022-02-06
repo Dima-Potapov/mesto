@@ -6,6 +6,8 @@ const popupContainer = document.querySelector('.popup__container')
 
 function openPopup() {
   popup.classList.add('popup_opened')
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = descriptionInput.value;
 }
 
 function closePopup() {
