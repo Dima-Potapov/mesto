@@ -1,8 +1,7 @@
 .profile__information {
     display: flex;
     flex-direction: column;
-    padding-top: 12px;
-    min-width: 336px;       
+    padding-top: 12px;    
 }
 
 @media screen and (max-width: 1040px) {

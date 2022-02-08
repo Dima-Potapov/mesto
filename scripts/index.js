@@ -6,8 +6,8 @@ const popupContainer = document.querySelector('.popup__container')
 
 function openPopup() {
   popup.classList.add('popup_opened')
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = descriptionInput.value;
+  nameInput.value = profileTitle.textContent;
+  descriptionInput.value = profileSubtitle.textContent;
 }
 
 function closePopup() {
@@ -16,17 +16,6 @@ function closePopup() {
 
 openEditNameDescription.addEventListener('click', openPopup)
 popupCloseButton.addEventListener('click', closePopup)
-
-
-popup.addEventListener('click', function(event) {
-  if(!event.defaultPrevented) {
-    closePopup()
-  }
-})
-popupContainer.addEventListener('click', function(e) {
-  e.preventDefault()
-})
-
 
 
 
