@@ -4,13 +4,14 @@
     padding: 0;
     position: absolute;
     cursor: pointer;
-    bottom: 338px;
-    left: 438px;
+    top: -40px;
+    right: -40px;
     object-fit: fill;
     background-image: url(../../../images/svg/cross_close.svg);
     background-repeat: no-repeat;
     border: 0;
     background-color: transparent;    
+    transition: opacity .3s;
 }
 
 .popup__button-close:hover {

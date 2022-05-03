@@ -4,5 +4,6 @@
     overflow: hidden;
     color: #000000;
     background-color: #FFFFFF;
-    border-radius: 10px;  
+    border-radius: 10px;
+    position: relative;
 }

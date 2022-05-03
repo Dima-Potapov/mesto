@@ -9,6 +9,7 @@
     margin: auto 0 auto auto;
     padding-left: 73px;
     padding-right: 73px;
+    transition: opacity .3s;
 }
 
 .profile__button:hover {

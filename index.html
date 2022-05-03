@@ -25,57 +25,10 @@
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-      <button class="profile__button" name="profile__button" type="button" value="button"></button>
+      <button class="profile__button" name="profile__button" type="button" value="add"></button>
       </section>
 
       <section class="elements">
-        <div class="card">
-          <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <div class="card__group">
-            <h2 class="card__title">Карачаевск-Черкесск</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/gora_elbrus.jpg" alt="Гора Эльбрус">
-          <div class="card__group">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/dombaj.jpg" alt="Домбай">
-          <div class="card__group">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/aktyry.jpg" alt="Актуру">
-          <div class="card__group">
-            <h2 class="card__title">Актуру</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/aktash.jpg" alt="Акташ">
-          <div class="card__group">
-            <h2 class="card__title">Акташ</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card__image" src="./images/kamchatka.jpg" alt="Камчатка">
-          <div class="card__group">
-            <h2 class="card__title">Камчатка</h2>
-            <button class="card__heart" name="card__heart" type="button" value="heart"></button>
-          </div>
-        </div>
       </section>
     </main>
 
@@ -83,20 +36,49 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
 
-
-  <div class="popup">
-    <div class="popup__block">
-      <button class="popup__button-close" type="button"></button>
-      <form class="popup__container" name="name-description" id="name-description" novalidate>
-          <h3 class="popup__title">Редактировать профиль</h3>
-          <fieldset class="popup__forms" form="name-description">
-            <input id="username" class="popup__input" name="name" value="Жак-Ив Кусто" placeholder="Жак-Ив Кусто" required minlength="3" maxlength="20">
-            <input id="description" class="popup__input" name="description" value="Исследователь океана" placeholder="Исследователь океана" required minlength="3" maxlength="150">
-            <button class="popup__button-save" type="submit">Сохранить</button>
-          </fieldset>          
-      </form>
-    </div>  
+  <div class="popup" id="edit-profile-popup" data-type="edit">        
+    <form class="popup__container" name="edit" id="edit" novalidate>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <fieldset class="popup__forms" form="edit">
+          <input class="popup__input" id="username" name="name" value="Жак-Ив Кусто" placeholder="Жак-Ив Кусто" required minlength="3" maxlength="30">
+          <input class="popup__input" id="description" name="description" value="Исследователь океана" placeholder="Исследователь океана" required minlength="3" maxlength="150">
+          <button class="popup__button-save" type="submit">Сохранить</button>
+        </fieldset>
+        <button class="popup__button-close" id="close-edit-profile" type="button"></button>          
+    </form>     
   </div>
+
+  <div class="popup" id="add-card-popup" data-type="add">      
+    <form class="popup__container" name="add" id="add" novalidate>
+        <h3 class="popup__title">Новое место</h3>
+        <fieldset class="popup__forms" form="add">
+          <input class="popup__input" id="newImageName" name="name" value="" placeholder="Название" required minlength="3" maxlength="30">
+          <input class="popup__input" id="newImageLink" name="description" value="" placeholder="Ссылка на картинку" required minlength="3" maxlength="150">
+          <button class="popup__button-save" type="submit">Создать</button>
+        </fieldset>
+        <button class="popup__button-close" id="close-add-card" type="button"></button>        
+    </form>
+  </div>
+
+  <div class="popup" id="show-image-popup" data-type="picture">
+    <figure class="popup__picture">
+      <img  class="popup__image" src="" alt="">
+      <figcaption class="popup__picture-title"></figcaption>
+      <button class="popup__button-close" id="close-show-image" type="button"></button>
+    </figure>
+  </div>
+
+  <template id="template-card">
+    <div class="card">
+      <div class="card__button-delete"></div>
+      <img class="card__image" src="" alt="">
+      <div class="card__group">
+        <h2 class="card__title"></h2>
+        <button class="card__heart" name="card__heart" type="button" value="heart"></button>
+      </div>
+    </div>
+  </template>
+
   </div>
   <script src="./scripts/index.js"></script>  
 </body>

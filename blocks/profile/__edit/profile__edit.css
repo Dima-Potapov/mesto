@@ -9,7 +9,7 @@
     border: 1px solid #FFFFFF;
     background: url(../../../images/svg/button_edit.svg) no-repeat;
     background-position: center;
-    
+    transition: opacity .3s;
 }
 
 .profile__edit:hover {
