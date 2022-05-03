@@ -43,14 +43,5 @@
 @import url(../blocks/popup/__image/popup__image.css);
 
 
-@import url(../blocks/view/view.css);
-@import url(../blocks/view/__block/view__block.css);
-@import url(../blocks/view/__button-close/view__button-close.css);
-@import url(../blocks/view/__container/view__container.css);
-@import url(../blocks/view/__photo/view__photo.css);
-@import url(../blocks/view/__tilte/view__tilte.css);
-@import url(../blocks/view/_opened/view_opened.css);
-
-
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
