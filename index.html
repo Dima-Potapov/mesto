@@ -40,8 +40,8 @@
     <form class="popup__container" name="edit" id="edit" novalidate>
         <h3 class="popup__title">Редактировать профиль</h3>
         <fieldset class="popup__forms" form="edit">
-          <input class="popup__input" id="username" name="name" value="Жак-Ив Кусто" placeholder="Жак-Ив Кусто" required minlength="3" maxlength="30">
-          <input class="popup__input" id="description" name="description" value="Исследователь океана" placeholder="Исследователь океана" required minlength="3" maxlength="150">
+          <input class="popup__input" id="username" name="name" value="Жак-Ив Кусто" placeholder="Имя" required minlength="3" maxlength="30">
+          <input class="popup__input" id="description" name="description" value="Исследователь океана" placeholder="Профессия" required minlength="3" maxlength="150">
           <button class="popup__button-save" type="submit">Сохранить</button>
         </fieldset>
         <button class="popup__button-close" id="close-edit-profile" type="button"></button>          
@@ -80,6 +80,7 @@
   </template>
 
   </div>
+  <script src="./scripts/card.js"></script> 
   <script src="./scripts/index.js"></script>  
 </body>
 </html>
