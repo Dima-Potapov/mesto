@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -40,8 +40,14 @@
     <form class="popup__container" name="edit" id="edit" novalidate>
         <h3 class="popup__title">Редактировать профиль</h3>
         <fieldset class="popup__forms" form="edit">
-          <input class="popup__input" id="username" name="name" value="Жак-Ив Кусто" placeholder="Имя" required minlength="3" maxlength="30">
-          <input class="popup__input" id="description" name="description" value="Исследователь океана" placeholder="Профессия" required minlength="3" maxlength="150">
+          <div class="popup__form-group">
+            <input class="popup__input" id="username" name="name" type="text" value="Жак-Ив Кусто" placeholder="Имя" minlength="2" maxlength="40" required>
+            <span id="username-error" class="popup__form-error"></span>
+          </div>
+          <div class="popup__form-group">
+            <input class="popup__input" id="description" name="description" type="text" value="Исследователь океана" placeholder="Профессия" minlength="2" maxlength="200" required>
+            <span id="description-error" class="popup__form-error"></span>
+          </div>
           <button class="popup__button-save" type="submit">Сохранить</button>
         </fieldset>
         <button class="popup__button-close" id="close-edit-profile" type="button"></button>          
@@ -52,8 +58,14 @@
     <form class="popup__container" name="add" id="add" novalidate>
         <h3 class="popup__title">Новое место</h3>
         <fieldset class="popup__forms" form="add">
-          <input class="popup__input" id="newImageName" name="name" value="" placeholder="Название" required minlength="3" maxlength="30">
-          <input class="popup__input" id="newImageLink" name="description" value="" placeholder="Ссылка на картинку" required minlength="3" maxlength="150">
+          <div class="popup__form-group">
+            <input class="popup__input" id="new-image-name" name="name" type="text" value="" placeholder="Название" minlength="2" maxlength="30" required>
+            <span id="new-image-name-error" class="popup__form-error"></span>
+          </div>
+          <div class="popup__form-group">
+            <input class="popup__input" id="new-image-link" name="description" type="url" value="" placeholder="Ссылка на картинку" required>
+            <span id="new-image-link-error" class="popup__form-error"></span>
+          </div>          
           <button class="popup__button-save" type="submit">Создать</button>
         </fieldset>
         <button class="popup__button-close" id="close-add-card" type="button"></button>        
@@ -82,5 +94,6 @@
   </div>
   <script src="./scripts/card.js"></script> 
   <script src="./scripts/index.js"></script>  
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
