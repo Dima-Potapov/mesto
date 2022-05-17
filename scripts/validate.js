@@ -17,22 +17,29 @@ const dataForValidAddCartFormObject = {
 };
 
 // Запуск валидации формы
-function enableValidation(formData) {
-  const listInput = getInputList(formData);
+function enableValidation() {
+  const arrayDataForms = [
+    dataForValidProfileFormObject,
+    dataForValidAddCartFormObject,
+  ];
 
-  listInput.forEach((input) => {
-    input.addEventListener('input', () => {
-      let validStatus = validateAndManageErrorInput(input, formData);
+  arrayDataForms.forEach((formData) => {
+    const listInput = getInputList(formData);
 
-      if (!validStatus) {
-        disableButton(formData);
-      } else {
-        const isValid = validateForm(listInput, formData);
+    listInput.forEach((input) => {
+      input.addEventListener('input', () => {
+        let validStatus = validateAndManageErrorInput(input, formData);
 
-        if (isValid) {
-          enableButton(formData);
+        if (!validStatus) {
+          disableButton(formData);
+        } else {
+          const isValid = validateForm(listInput, formData);
+
+          if (isValid) {
+            enableButton(formData);
+          }
         }
-      }
+      })
     })
   })
 }
@@ -123,5 +130,4 @@ function getInputList(formData) {
 }
 
 // Запуск валидции форм
-enableValidation(dataForValidProfileFormObject);
-enableValidation(dataForValidAddCartFormObject);
+enableValidation();
