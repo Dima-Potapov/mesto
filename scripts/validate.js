@@ -77,6 +77,18 @@ function clearError(errorElement, element, inputErrorClass) {
   element.classList.remove(inputErrorClass);
 }
 
+// Перезугрузка ошибок и формы
+function resetErrorsAndForm(formData) {
+  const form = getForm(formData.formSelector);
+  const listInput = getInputList(formData);
+
+  form.reset();
+
+  listInput.forEach((input) => {
+    clearError(getErrorElement(input.id), input, formData.inputErrorClass);
+  })
+}
+
 // Блокирует кнопку submit
 function disableButton(formData) {
   const form = getForm(formData.formSelector);

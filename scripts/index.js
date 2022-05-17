@@ -1,5 +1,5 @@
-const openEditNameDescription = document.querySelector('.profile__edit');
-const openAddCard = document.querySelector('.profile__button');
+const buttonOpenEditProfile = document.querySelector('.profile__edit');
+const buttonOpenAddCard = document.querySelector('.profile__button');
 
 const popupEditProfile = document.querySelector('#edit-profile-popup');
 const popupAddCard = document.querySelector('#add-card-popup');
@@ -47,18 +47,6 @@ function handleAddCardFormSubmit () {
       name: imageNameInput.value,
       link: imageLinkInput.value
   }));
-}
-
-// Перезугрузка ошибок и формы
-function resetErrorsAndForm(formData) {
-  const form = getForm(formData.formSelector);
-  const listInput = getInputList(formData);
-
-  form.reset();
-
-  listInput.forEach((input) => {
-    clearError(getErrorElement(input.id), input, formData.inputErrorClass);
-  })
 }
 
 // Закрытие и перезагрузка форм
@@ -109,10 +97,7 @@ function getOpenPopup() {
 
 
 const handleKeydownClosePopup = (event) => {
-  const openPopup = getOpenPopup();
-
   if (event.code === 'Escape') {
-    closeAndReset(openPopup);
     document.removeEventListener('keydown', handleKeydownClosePopup);
   }
 }
@@ -162,7 +147,7 @@ const createCard = (item) => {
 
 
 // Слушатели для отображения форм
-openEditNameDescription.addEventListener('click',() => {
+buttonOpenEditProfile.addEventListener('click',() => {
   document.addEventListener('keydown', handleKeydownClosePopup);
 
   nameInput.value = profileTitle.textContent;
@@ -171,7 +156,7 @@ openEditNameDescription.addEventListener('click',() => {
   openPopup(popupEditProfile);
 });
 
-openAddCard.addEventListener('click', () => {
+buttonOpenAddCard.addEventListener('click', () => {
   document.addEventListener('keydown', handleKeydownClosePopup);
 
   disableButton(dataForValidAddCartFormObject);
