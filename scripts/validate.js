@@ -1,15 +1,6 @@
 // Данные для валидации формы редактирвоания профиля
-const dataForValidProfileFormObject = {
-  formSelector: '#edit',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_inactive',
-  inputErrorClass: 'popup__input_error',
-};
-
-// Данные для валидации формы добавления карточки
-const dataForValidAddCartFormObject = {
-  formSelector: '#add',
+const validConfig = {
+  formSelector: '.popup__container',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-save',
   inactiveButtonClass: 'popup__button-save_inactive',
@@ -17,26 +8,23 @@ const dataForValidAddCartFormObject = {
 };
 
 // Запуск валидации формы
-function enableValidation() {
-  const arrayDataForms = [
-    dataForValidProfileFormObject,
-    dataForValidAddCartFormObject,
-  ];
+function enableValidation(validConfig) {
+  const arrayForms = Array.from(document.querySelectorAll(validConfig.formSelector));
 
-  arrayDataForms.forEach((formData) => {
-    const listInput = getInputList(formData);
+  arrayForms.forEach((form) => {
+    const listInput = getInputList(form, validConfig);
 
     listInput.forEach((input) => {
       input.addEventListener('input', () => {
-        let validStatus = validateAndManageErrorInput(input, formData);
+        let validStatus = validateAndManageErrorInput(input, validConfig);
 
         if (!validStatus) {
-          disableButton(formData);
+          disableButton(form, validConfig);
         } else {
-          const isValid = validateForm(listInput, formData);
+          const isValid = validateForm(listInput);
 
           if (isValid) {
-            enableButton(formData);
+            enableButton(form, validConfig);
           }
         }
       })
@@ -45,7 +33,7 @@ function enableValidation() {
 }
 
 // Валидация формы полностью
-function validateForm(listInput, formData) {
+function validateForm(listInput) {
   let isValid = listInput.reduce((isValidForm, input) => {
     if (!input.validity.valid) {
       isValidForm = false;
@@ -58,24 +46,24 @@ function validateForm(listInput, formData) {
 }
 
 // Валидирует полем ввода и управляет ошибкой
-function validateAndManageErrorInput(element, formData) {
+function validateAndManageErrorInput(element, validConfig) {
   const errorElement = getErrorElement(element.id);
 
   if(!element.validity.valid){
-    showError(errorElement, element, formData.inputErrorClass);
+    showError(errorElement, element, validConfig);
 
     return false;
   }
 
-  clearError(errorElement, element, formData.inputErrorClass);
+  clearError(errorElement, element, validConfig.inputErrorClass);
 
   return true;
 }
 
 // Показывает ошибку
-function showError(errorElement, element, inputErrorClass) {
+function showError(errorElement, element, validConfig) {
   errorElement.textContent = element.validationMessage;
-  element.classList.add(inputErrorClass);
+  element.classList.add(validConfig.inputErrorClass);
 }
 
 // Очищает ошибку
@@ -85,32 +73,29 @@ function clearError(errorElement, element, inputErrorClass) {
 }
 
 // Перезугрузка ошибок и формы
-function resetErrorsAndForm(formData) {
-  const form = getForm(formData.formSelector);
-  const listInput = getInputList(formData);
+function resetErrorsAndForm(form, validConfig) {
+  const listInput = getInputList(form, validConfig);
 
   form.reset();
 
   listInput.forEach((input) => {
-    clearError(getErrorElement(input.id), input, formData.inputErrorClass);
+    clearError(getErrorElement(input.id), input, validConfig.inputErrorClass);
   })
 }
 
 // Блокирует кнопку submit
-function disableButton(formData) {
-  const form = getForm(formData.formSelector);
-  const submitButton = getSubmitButton(form, formData.submitButtonSelector);
+function disableButton(form, validConfig) {
+  const submitButton = getSubmitButton(form, validConfig.submitButtonSelector);
 
-  submitButton.classList.add(formData.inactiveButtonClass);
+  submitButton.classList.add(validConfig.inactiveButtonClass);
   submitButton.disabled = true;
 }
 
 // Активация кнопки submit
-function enableButton(formData) {
-  const form = getForm(formData.formSelector);
-  const submitButton = getSubmitButton(form, formData.submitButtonSelector);
+function enableButton(form, validConfig) {
+  const submitButton = getSubmitButton(form, validConfig.submitButtonSelector);
 
-  submitButton.classList.remove(formData.inactiveButtonClass);
+  submitButton.classList.remove(validConfig.inactiveButtonClass);
   submitButton.disabled = false;
 }
 
@@ -122,12 +107,11 @@ function getErrorElement(idInput) {
 }
 
 // Получение массива с полями ввода конкретной формы
-function getInputList(formData) {
-  const form = getForm(formData.formSelector);
-  const listInput = Array.from(form.querySelectorAll(formData.inputSelector));
+function getInputList(form, validConfig) {
+  const listInput = Array.from(form.querySelectorAll(validConfig.inputSelector));
 
   return listInput;
 }
 
 // Запуск валидции форм
-enableValidation();
+enableValidation(validConfig);

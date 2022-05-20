@@ -37,6 +37,12 @@ function openPopup (popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 
+  const form = popup.querySelector('form');
+
+  if (form && form.id === 'edit') {
+    resetErrorsAndForm(form, validConfig);
+  }
+
   document.removeEventListener('keydown', handleKeydownClosePopup);
   popup.removeEventListener('click', handleClosePopupFormOverlay);
 }
@@ -55,13 +61,6 @@ function handleAddCardFormSubmit () {
   }));
 }
 
-// Получение формы по селектору
-function getForm(formSelector) {
-  const form = document.querySelector(formSelector)
-
-  return form;
-}
-
 // Получение submit по селектору и формы
 function getSubmitButton(form, submitButtonSelector) {
   const submitButton = form.querySelector(submitButtonSelector);
@@ -76,10 +75,18 @@ function getOpenPopup() {
   return formPopup;
 }
 
+function getForm(formSelector) {
+  const form = document.querySelector(formSelector);
+
+  return form;
+}
+
 
 const handleKeydownClosePopup = (event) => {
   if (event.code === 'Escape') {
-    closePopup(getOpenPopup());
+    const openPopup = getOpenPopup();
+
+    closePopup(openPopup);
   }
 }
 
@@ -104,9 +111,7 @@ const handleHeartActiveCard = (event) => {
 
 // Закрывает popup форму
 const handleClosePopupFormOverlay = (event) => {
-  const classList = Array.from(event.target.classList);
-
-  if (classList.includes('popup')) {
+  if (event.target === event.currentTarget) {
     closePopup(event.target);
   }
 };
@@ -142,9 +147,15 @@ buttonOpenEditProfile.addEventListener('click',() => {
   openPopup(popupEditProfile);
 });
 
-buttonOpenAddCard.addEventListener('click', () => {
-  disableButton(dataForValidAddCartFormObject);
-  openPopup(popupAddCard);
+buttonOpenAddCard.addEventListener('click', (event) => {
+  const form = getForm('#add');
+  const inputList = getInputList(form, validConfig)
+
+  if (!validateForm(inputList)) {
+    disableButton(form, validConfig);
+  }
+  
+   openPopup(popupAddCard);
 });
 
 
@@ -152,7 +163,10 @@ buttonOpenAddCard.addEventListener('click', () => {
 popupEditProfileCloseButton.addEventListener('click', (event) => {
   event.stopPropagation();
 
+  const form = getForm('#edit');
+
   closePopup(popupEditProfile);
+  resetErrorsAndForm(form, validConfig);
 });
 
 popupAddCardCloseButton.addEventListener('click', (event) => {
@@ -175,8 +189,8 @@ popupEditProfileForm.addEventListener('submit', (event) => {
   handleProfileFormSubmit();
 
   closePopup(popupEditProfile);
-  resetErrorsAndForm(dataForValidProfileFormObject);
-  enableButton(dataForValidProfileFormObject);
+  resetErrorsAndForm(event.currentTarget, validConfig);
+  enableButton(event.currentTarget, validConfig);
 });
 
 // Слушатели на добавление карточки
@@ -186,8 +200,8 @@ popupAddCardForm.addEventListener('submit', (event) => {
   handleAddCardFormSubmit();
 
   closePopup(popupAddCard);
-  resetErrorsAndForm(dataForValidAddCartFormObject);
-  disableButton(dataForValidAddCartFormObject);
+  resetErrorsAndForm(event.currentTarget, validConfig);
+  disableButton(event.currentTarget, validConfig);
 });
 
 
