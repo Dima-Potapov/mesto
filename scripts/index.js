@@ -7,7 +7,6 @@ const buttonOpenAddCard = document.querySelector('.profile__button');
 
 const popupEditProfile = document.querySelector('#edit-profile-popup');
 const popupAddCard = document.querySelector('#add-card-popup');
-const popupShowImage = document.querySelector('#show-image-popup');
 
 const popupEditProfileCloseButton = document.querySelector('#close-edit-profile');
 const popupAddCardCloseButton = document.querySelector('#close-add-card');
@@ -209,12 +208,6 @@ popupAddCardCloseButton.addEventListener('click', (event) => {
   event.stopPropagation();
 
   closePopup(popupAddCard);
-});
-
-popupShowImageCloseButton.addEventListener('click', (event) => {
-  event.stopPropagation();
-
-  closePopup(popupShowImage);
 });
 
 

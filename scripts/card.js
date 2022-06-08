@@ -31,6 +31,11 @@ export class Card {
         this._element.querySelector('.card__image').addEventListener('click', event => {
             this._handleImageActiveCard(event);
         });
+        document.querySelector('#close-show-image').addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            this._closePopup(this._getPopupImage());
+        });
     }
 
     _handleDeleteCard(event) {
