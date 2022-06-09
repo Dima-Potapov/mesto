@@ -1,3 +1,8 @@
+import {
+    handleKeydownClosePopup,
+    handleClosePopupFormOverlay
+} from "./index.js";
+
 export class Card {
     constructor(
         name,
@@ -49,13 +54,9 @@ export class Card {
     _openPopup(popup) {
         popup.classList.add('popup_opened');
 
-        document.addEventListener('keydown', event => {
-            this._handleKeydownClosePopup(event);
-        });
+        document.addEventListener('keydown', handleKeydownClosePopup);
 
-        popup.addEventListener('click', event => {
-            this._handleClosePopupFormOverlay(event);
-        });
+        popup.addEventListener('click', handleClosePopupFormOverlay);
     }
     
     _handleImageActiveCard(event) {
@@ -70,30 +71,12 @@ export class Card {
         this._openPopup(popupShowImage);
     }
 
-    _handleKeydownClosePopup(event) {
-        if (event.code === 'Escape') {
-            const openPopup = document.querySelector('.popup_opened');
-
-            this._closePopup(openPopup);
-        }
-    }
-
-    _handleClosePopupFormOverlay(event) {
-        if (event.target === event.currentTarget) {
-            this._closePopup(event.target);
-        }
-    }
-
     _closePopup(popup) {
         popup.classList.remove('popup_opened');
 
-        document.removeEventListener('keydown', event => {
-            this._handleKeydownClosePopup(event);
-        });
+        document.removeEventListener('keydown', handleKeydownClosePopup);
 
-        popup.removeEventListener('click', event => {
-            this._handleClosePopupFormOverlay(event);
-        });
+        popup.removeEventListener('click', handleClosePopupFormOverlay);
     }
 
     generateCard() {

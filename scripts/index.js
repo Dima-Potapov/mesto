@@ -10,7 +10,6 @@ const popupAddCard = document.querySelector('#add-card-popup');
 
 const popupEditProfileCloseButton = document.querySelector('#close-edit-profile');
 const popupAddCardCloseButton = document.querySelector('#close-add-card');
-const popupShowImageCloseButton = document.querySelector('#close-show-image');
 
 const popupEditProfileForm = document.querySelector('#edit');
 const popupAddCardForm = document.querySelector('#add');
@@ -159,7 +158,7 @@ function getForm(formSelector) {
 }
 
 
-const handleKeydownClosePopup = (event) => {
+export const handleKeydownClosePopup = (event) => {
   if (event.code === 'Escape') {
     const openPopup = getOpenPopup();
 
@@ -168,7 +167,7 @@ const handleKeydownClosePopup = (event) => {
 }
 
 // Закрывает popup форму
-const handleClosePopupFormOverlay = (event) => {
+export const handleClosePopupFormOverlay = (event) => {
   if (event.target === event.currentTarget) {
     closePopup(event.target);
   }
