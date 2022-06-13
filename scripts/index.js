@@ -26,6 +26,9 @@ const imageLinkInput = document.querySelector('#new-image-link');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
+const imageAddCardPopup = popupShowCard.querySelector('img');
+const figcaptionAddCardPopup = popupShowCard.querySelector('figcaption');
+
 const validConfig = {
   formSelector: '.popup__container',
   inputSelector: '.popup__input',
@@ -35,21 +38,15 @@ const validConfig = {
   errorElementSelector: '.popup__form-error',
 };
 
-let formValidators = {};
+const formValidators = {};
 
 // Включение валидации
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((formElement) => {
-    let validator;
-    const formName = formElement.getAttribute('name');
-
-    if (formElement.getAttribute('name') === 'add') {
-      validator = new FormValidator(config, formElement, false);
-    } else {
-      validator = new FormValidator(config, formElement);
-    }
+    const formName = formElement.getAttribute('name'),
+        validator = new FormValidator(config, formElement);
 
     formValidators[formName] = validator;
     validator.enableValidation();
@@ -98,12 +95,9 @@ function getOpenPopup() {
 }
 
 function handleCardClick(name, link) {
-  const imagePopup = popupShowCard.querySelector('img');
-  const figcaptionPopup = popupShowCard.querySelector('figcaption');
-
-  imagePopup.src = link;
-  imagePopup.alt = name;
-  figcaptionPopup.textContent = name;
+  imageAddCardPopup.src = link;
+  imageAddCardPopup.alt = name;
+  figcaptionAddCardPopup.textContent = name;
 
   openPopup(popupShowCard);
 }

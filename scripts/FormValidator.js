@@ -1,12 +1,10 @@
 export class FormValidator {
     constructor(
         validConfig,
-        form,
-        isDefaultEnableSubmit = true
+        form
     ) {
         this.validConfig = validConfig;
         this.form = form;
-        this.isDefaultEnableSubmit = isDefaultEnableSubmit;
     }
 
     _getErrorElement(idInput) {
@@ -47,7 +45,7 @@ export class FormValidator {
     }
 
     _validateForm() {
-        let isValid = this._inputList.reduce((isValidForm, input) => {
+        const isValid = this._inputList.reduce((isValidForm, input) => {
             if (!input.validity.valid) {
                 isValidForm = false;
             }
@@ -67,11 +65,7 @@ export class FormValidator {
         this._inputList.forEach(item => {
             this._clearError(item);
 
-            if (this.isDefaultEnableSubmit) {
-                this._enableButton();
-            } else {
-                this._disableButton();
-            }
+            this._disableButton();
         })
     }
 
@@ -81,7 +75,7 @@ export class FormValidator {
 
         this._inputList.forEach((input) => {
             input.addEventListener('input', () => {
-                let validStatus = this._validateAndManageErrorInput(input);
+                const validStatus = this._validateAndManageErrorInput(input);
 
                 if (!validStatus) {
                     this._disableButton();
