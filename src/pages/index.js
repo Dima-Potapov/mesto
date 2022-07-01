@@ -1,34 +1,26 @@
-import { Card } from "./scripts/Card.js";
-import { initialCards } from "./scripts/data.js";
-import { FormValidator } from "./scripts/FormValidator.js";
-import { Section } from "./scripts/Section.js";
-import { PopupWithImage } from "./scripts/PopupWithImage.js";
-import { PopupWithForm } from "./scripts/PopupWithForm.js";
-import { UserInfo } from "./scripts/UserInfo.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+
+import {
+  buttonOpenEditProfile, 
+  buttonOpenAddCard,
+  popupEditProfileForm,
+  popupAddCardForm,
+  nameInput,
+  descriptionInput,
+  imageNameInput,
+  imageLinkInput,
+  validConfig,
+  formValidators,
+  sectionObject,
+  popupImageObject,
+  popupEditProfileObject,
+  popupAddCardObject,
+  userInfoObject
+} from "../utils/constants.js";
+
 import './pages/index.css';
 
-const buttonOpenEditProfile = document.querySelector('.profile__edit');
-const buttonOpenAddCard = document.querySelector('.profile__button');
-
-const popupEditProfileForm = document.querySelector('#edit');
-const popupAddCardForm = document.querySelector('#add');
-
-const nameInput = document.querySelector('#username');
-const descriptionInput = document.querySelector('#description');
-
-const imageNameInput = document.querySelector('#new-image-name');
-const imageLinkInput = document.querySelector('#new-image-link');
-
-const validConfig = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_inactive',
-  inputErrorClass: 'popup__input_error',
-  errorElementSelector: '.popup__form-error',
-};
-
-const formValidators = {};
 
 function createCard({
     name,
@@ -44,37 +36,11 @@ function createCard({
   return cardObject.generateCard();
 }
 
-const sectionObject = new Section({
-      items: initialCards,
-      renderer: createCard
-    },
-    '.elements'
-)
 
 sectionObject.renderElements();
-
-
-const popupImageObject = new PopupWithImage('#show-image-popup');
 popupImageObject.setEventListeners();
-
-
-const popupEditProfileObject = new PopupWithForm(
-    '#edit-profile-popup',
-    handleProfileFormSubmit
-)
 popupEditProfileObject.setEventListeners();
-
-
-const popupAddCardObject = new PopupWithForm(
-    '#add-card-popup',
-    handleAddCardFormSubmit
-)
 popupAddCardObject.setEventListeners();
-
-const userInfoObject = new UserInfo({
-    nameSelector: '.profile__title',
-    descriptionSelector: '.profile__subtitle'
-});
 
 // Включение валидации
 const enableValidation = (config) => {
