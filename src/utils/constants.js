@@ -1,8 +1,10 @@
-import { initialCards } from "../components/data.js";
+import { initialCards } from "./data.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Card } from "../components/Card.js";
 
 export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
     buttonOpenAddCard = document.querySelector('.profile__button'),
@@ -27,6 +29,20 @@ export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
 
     formValidators = {},
 
+    createCard = ({
+        name,
+        link
+    }) => {
+      const cardObject = new Card(
+          name,
+          link,
+          '#template-card',
+          handleCardClick
+      );
+    
+      return cardObject.generateCard();
+    },
+
     sectionObject = new Section({
         items: initialCards,
         renderer: createCard
@@ -36,10 +52,31 @@ export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
 
     popupImageObject = new PopupWithImage('#show-image-popup'),
 
+    handleProfileFormSubmit = () => {
+        const data = popupEditProfileObject.listInputValues();
+      
+        userInfoObject.setUserInfo({
+            name: data.name,
+            description: data.description
+        })
+    },
+
     popupEditProfileObject = new PopupWithForm(
         '#edit-profile-popup',
         handleProfileFormSubmit
     ),
+
+    handleAddCardFormSubmit = () => {
+        const data = popupAddCardForm.listInputValues();
+        const cardObject = createCard(
+            {
+              name: data.name,
+              link: data.link
+            }
+        )
+      
+        sectionObject.addItem(cardObject)
+    },
 
     popupAddCardObject = new PopupWithForm(
         '#add-card-popup',
@@ -49,4 +86,20 @@ export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
     userInfoObject = new UserInfo({
         nameSelector: '.profile__title',
         descriptionSelector: '.profile__subtitle'
-    });
+    }),
+
+    enableValidation = (config) => {
+        const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+        formList.forEach((formElement) => {
+            const formName = formElement.getAttribute('name'),
+                validator = new FormValidator(config, formElement);
+
+            formValidators[formName] = validator;
+            validator.enableValidation();
+        });
+    },
+
+    handleCardClick = (name, link) => {
+        popupImageObject.open(link, name);
+    };
