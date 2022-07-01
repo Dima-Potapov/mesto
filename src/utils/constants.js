@@ -67,7 +67,7 @@ export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
     ),
 
     handleAddCardFormSubmit = () => {
-        const data = popupAddCardForm.listInputValues();
+        const data = popupAddCardObject.listInputValues();
         const cardObject = createCard(
             {
               name: data.name,
