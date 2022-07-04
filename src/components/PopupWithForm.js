@@ -9,7 +9,9 @@ export class PopupWithForm extends Popup {
         this.submitCallback = submitCallback;
     }
 
-    listInputValues() {
+    // Данные с инпутов форм должны обновляться, так как данные на странице должны мы изменяем формами.
+    // Поэтому они достаются при каждом вызове этого метода (при срабатывании submit).
+    getInputValues() {
         const inputValues = {};
 
         this.popup.querySelectorAll('.popup__input').forEach(input => {

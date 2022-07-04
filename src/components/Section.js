@@ -12,14 +12,14 @@ export class Section {
     }
 
     renderElements() {
-        this.items.forEach(item => {
-            const card = this.renderer(item);
-
-            this.addItem(card);
+        this.items.forEach(data => {
+            this.addItem(data);
         })
     }
 
-    addItem(cardElement) {
+    addItem(data) {
+        const cardElement = this.renderer(data);
+
         this.cardsContainer.prepend(cardElement);
     }
 }
