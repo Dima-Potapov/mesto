@@ -15,8 +15,11 @@
     </header>
 
     <main class="content">
-      <section class="profile">        
-        <img class="profile__photo" src="<%=require('./images/zhak_iv_kusto.jpg')%>" alt="фотография">
+      <section class="profile">
+        <div class="profile__photo">
+          <div class="profile__photo-edit"></div>
+          <img class="profile__photo-image" src="<%=require('./images/zhak_iv_kusto.jpg')%>" alt="фотография">          
+        </div>        
         <div class="profile__information">
           <div class="profile__group">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -50,7 +53,7 @@
           <button class="popup__button-save" type="submit">Сохранить</button>
         </fieldset>
         <button class="popup__button-close" id="close-edit-profile" type="button"></button>          
-    </form>     
+    </form>
   </div>
 
   <div class="popup" id="add-card-popup" data-type="add">      
@@ -71,6 +74,20 @@
     </form>
   </div>
 
+  <div class="popup" id="edit-profile-image" data-type="edit-image">      
+    <form class="popup__container" name="edit-image" id="edit-image" novalidate>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <fieldset class="popup__forms" form="add">
+          <div class="popup__form-group">
+            <input class="popup__input" id="new-image-photo" name="link" type="url" value="" placeholder="Ссылка на картинку" required>
+            <span id="new-image-link-error" class="popup__form-error"></span>
+          </div>          
+          <button class="popup__button-save" type="submit">Сохранить</button>
+        </fieldset>
+        <button class="popup__button-close" id="close-add-card" type="button"></button>        
+    </form>
+  </div>
+
   <div class="popup" id="show-image-popup" data-type="picture">
     <figure class="popup__picture">
       <img  class="popup__image" src="#" alt="">
@@ -79,13 +96,26 @@
     </figure>
   </div>
 
+  <div class="popup" id="question-delete-card-popup" data-type="question">      
+    <form class="popup__container" name="question" id="question" novalidate>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <fieldset class="popup__forms popup__forms_question" form="add">         
+          <button class="popup__button-save" type="submit">Да</button>
+        </fieldset>
+        <button class="popup__button-close" id="close-add-card" type="button"></button>        
+    </form>
+  </div>
+
   <template id="template-card">
     <div class="card">
       <div class="card__button-delete"></div>
       <img class="card__image" src="#" alt="">
       <div class="card__group">
         <h2 class="card__title"></h2>
-        <button class="card__heart" name="card__heart" type="button" value="heart"></button>
+        <div>
+          <button class="card__heart" name="card__heart" type="button" value="heart"></button>
+          <p class="card__likes">1</p>
+        </div>        
       </div>
     </div>
   </template>
