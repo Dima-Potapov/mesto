@@ -7,18 +7,15 @@ export class PopupWithForm extends Popup {
     ) {
         super(popupSelector);
         this.submitCallback = submitCallback;
+        this.inputValues = {};
     }
 
-    // Данные с инпутов форм должны обновляться, так как данные на странице должны мы изменяем формами.
-    // Поэтому они достаются при каждом вызове этого метода (при срабатывании submit).
     getInputValues() {
-        const inputValues = {};
-
         this.popup.querySelectorAll('.popup__input').forEach(input => {
-            inputValues[input.name] = input.value;
+            this.inputValues[input.name] = input.value;
         })
 
-        return inputValues;
+        return this.inputValues;
     }
 
     close() {
@@ -36,8 +33,6 @@ export class PopupWithForm extends Popup {
             event.preventDefault();
 
             this.submitCallback();
-
-            this.close();
         });
     }
 }

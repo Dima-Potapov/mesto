@@ -1,11 +1,14 @@
 export const buttonOpenEditProfile = document.querySelector('.profile__edit'),
     buttonOpenAddCard = document.querySelector('.profile__button'),
+    buttonOpenEditAvatar = document.querySelector('.profile__photo-edit'),
 
     popupEditProfileForm = document.querySelector('#edit'),
     popupAddCardForm = document.querySelector('#add'),
+    popupWithConfirmationForm = document.querySelector('#question'),
+    popupEditAvatarForm = document.querySelector('#edit-image'),
 
     nameInput = document.querySelector('#username'),
-    descriptionInput = document.querySelector('#description'),
+    aboutInput = document.querySelector('#about'),
 
     validConfig = {
         formSelector: '.popup__container',

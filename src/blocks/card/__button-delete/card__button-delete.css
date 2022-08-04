@@ -10,6 +10,7 @@
     border: 0;
     cursor: pointer;
     transition: opacity .3s;
+    display: none;
 }
 
 .card__button-delete:hover {
