@@ -4,6 +4,14 @@ export class Api {
         this.authorization = options.headers.authorization;
     }
 
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+
+        return Promise.reject(`Error: ${res.status}`);
+    }
+
     getUserData() {
         return fetch(`${this.baseUrl}/users/me`, {
             method: 'GET',
@@ -12,13 +20,7 @@ export class Api {
                 authorization: this.authorization
             },
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     editUserData({
@@ -36,13 +38,7 @@ export class Api {
                 about
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     editUserAvatar(avatar) {
@@ -56,13 +52,7 @@ export class Api {
                 avatar
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     getInitCards() {
@@ -72,13 +62,7 @@ export class Api {
                 authorization: this.authorization
             },
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     addCard({name, link}) {
@@ -93,13 +77,7 @@ export class Api {
                 link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     deleteCard(cartId) {
@@ -109,13 +87,7 @@ export class Api {
                 authorization: this.authorization,
             },
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     addLikeCard(cartId) {
@@ -125,13 +97,7 @@ export class Api {
                 authorization: this.authorization,
             },
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
     deleteLikeCard(cartId) {
@@ -141,12 +107,6 @@ export class Api {
                 authorization: this.authorization,
             },
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                return Promise.reject(`Error: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 }
