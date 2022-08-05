@@ -34,18 +34,6 @@ const handleCardClick = (name, link) => {
         }
     }),
 
-    createCard = (item) => {
-        const cardObject = new Card(
-            item,
-            '#template-card',
-            handleCardClick,
-            handleConfirmationDeleteCard,
-            handleAddLikeCard
-        );
-
-        return cardObject.generateCard(userInfoObject.getUserInfo().id);
-    },
-
     handleAddLikeCard = (event) => {
         const heartElement = event.target;
         const likeElement = heartElement.nextElementSibling
@@ -140,6 +128,7 @@ const handleCardClick = (name, link) => {
 
 let sectionObject;
 let userInfoObject;
+let createCard;
 
 api.getUserData()
     .then(userData => {
@@ -155,20 +144,35 @@ api.getUserData()
             about: userData.about,
         })
 
+        createCard = (item) => {
+            const cardObject = new Card(
+                item,
+                '#template-card',
+                handleCardClick,
+                handleConfirmationDeleteCard,
+                handleAddLikeCard
+            );
+
+            const userInfo = userInfoObject.getUserInfo();
+
+            return cardObject.generateCard(userInfo.id);
+        };
+
         userInfoObject.setAvatar(userData.avatar);
-    });
+    })
+    .then(() => {
+        api.getInitCards()
+            .then(items => {
+                sectionObject = new Section({
+                        items: items.reverse(),
+                        renderer: createCard
+                    },
+                    '.elements'
+                );
 
-api.getInitCards()
-    .then(items => {
-        sectionObject = new Section({
-                items: items.reverse(),
-                renderer: createCard
-            },
-            '.elements'
-        );
-
-        sectionObject.renderElements();
-});
+                sectionObject.renderElements();
+            });
+    })
 
 const handleAddCardFormSubmit = () => {
       const data = popupAddCardObject.getInputValues();
