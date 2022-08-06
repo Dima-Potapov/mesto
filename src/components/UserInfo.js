@@ -26,7 +26,10 @@ export class UserInfo {
     }) {
         this.name.textContent = name;
         this.about.textContent = about;
-        this.avatar.src = avatar;
+        
+        if (avatar) {
+            this.avatar.src = avatar;
+        }
     }
 
 }
