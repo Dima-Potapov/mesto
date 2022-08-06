@@ -6,14 +6,15 @@ export class PopupWithForm extends Popup {
         submitCallback
     ) {
         super(popupSelector);
+
         this.submitCallback = submitCallback;
         this.inputValues = {};
         this.submitButton = this.popup.querySelector('.popup__button-save');
+        this.inputElements = this.popup.querySelectorAll('.popup__input')
     }
-    // Данные с инпутов форм должны обновляться, так как данные на странице должны мы изменяем формами.
-    // Поэтому они достаются при каждом вызове этого метода (при срабатывании submit).
+
     getInputValues() {
-        this.popup.querySelectorAll('.popup__input').forEach(input => {
+        this.inputElements.forEach(input => {
             this.inputValues[input.name] = input.value;
         })
 
