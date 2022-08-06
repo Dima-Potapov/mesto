@@ -22,12 +22,11 @@ export class UserInfo {
     setUserInfo({
         name,
         about,
+        avatar
     }) {
         this.name.textContent = name;
         this.about.textContent = about;
-    }
-
-    setAvatar(avatar) {
         this.avatar.src = avatar;
     }
+
 }

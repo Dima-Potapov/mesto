@@ -12,6 +12,7 @@ import {
     popupWithConfirmationForm,
     popupEditAvatarForm,
     buttonOpenEditAvatar
+ 
 } from "../utils/constants";
 
 import './index.css';
@@ -46,22 +47,27 @@ const handleCardClick = (name, link) => {
                     heartElement.classList.toggle('card__heart_active');
 
                     likeElement.textContent = res.likes.length;
-                });
+                })
+                .catch((err) => {
+                    console.log(err);
+                }); 
         } else {
             api.addLikeCard(idCard)
                 .then(res => {
                     heartElement.classList.toggle('card__heart_active');
 
                     likeElement.textContent = res.likes.length;
-                });
+                })
+                .catch((err) => {
+                    console.log(err);
+                }); 
         }
     },
 
     handleProfileFormSubmit = () => {
         const data = popupEditProfileObject.getInputValues();
-        const submitButton = popupEditProfileForm.querySelector('.popup__button-save');
 
-        submitButton.textContent = 'Сохранение...';
+        popupEditProfileObject.renderLoading(true);
 
         api.editUserData(data)
             .then(newUserData => {
@@ -70,37 +76,44 @@ const handleCardClick = (name, link) => {
                     about: newUserData.about,
                 })
 
-                submitButton.textContent = 'Сохранить';
 
                 popupEditProfileObject.close();
             })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => popupEditProfileObject.renderLoading(false));
     },
 
     handleAvatarFormSubmit = () => {
         const data = popupEditAvatarObject.getInputValues();
-        const submitButton = popupEditAvatarForm.querySelector('.popup__button-save');
 
-        submitButton.textContent = 'Сохранение...';
+        popupEditAvatarObject.renderLoading(true);
 
         api.editUserAvatar(data.link)
-            .then(newAvatar => {
-                const userAvatar = document.querySelector('.profile__photo-image');
-
-                userAvatar.src = newAvatar.avatar;
-                submitButton.textContent = 'Сохранить';
+            .then(newUserInfo => {
+                userInfoObject.setUserInfo(newUserInfo);
 
                 popupEditAvatarObject.close();
             })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => popupEditAvatarObject.renderLoading(false));
     },
 
     handleDeleteCard = () => {
         const idCard = popupWithConfirmationForm.id;
+
         api.deleteCard(idCard)
             .then(res => {
                 document.getElementById(idCard).remove();
 
                 popupWithConfirmationObject.close();
-        });
+            })
+            .catch((err) => {
+                console.log(err);
+            }); 
     },
 
     handleConfirmationDeleteCard = (event) => {
@@ -139,10 +152,7 @@ api.getUserData()
             id: userData._id
         })
 
-        userInfoObject.setUserInfo({
-            name: userData.name,
-            about: userData.about,
-        })
+        userInfoObject.setUserInfo(userData)
 
         createCard = (item) => {
             const cardObject = new Card(
@@ -158,7 +168,6 @@ api.getUserData()
             return cardObject.generateCard(userInfo.id);
         };
 
-        userInfoObject.setAvatar(userData.avatar);
     })
     .then(() => {
         api.getInitCards()
@@ -173,21 +182,27 @@ api.getUserData()
                 sectionObject.renderElements();
             });
     })
+    .catch((err) => {
+        console.log(err);
+      }); 
 
 const handleAddCardFormSubmit = () => {
       const data = popupAddCardObject.getInputValues();
-      const submitButton = popupAddCardForm.querySelector('.popup__button-save');
 
-      submitButton.textContent = 'Сохранение...';
+
+      popupAddCardObject.renderLoading(true);
 
       api.addCard(data)
-          .then(dataNewCard => {
+            .then(dataNewCard => {
               sectionObject.addItem(dataNewCard)
 
-              submitButton.textContent = 'Сохраненить';
 
               popupAddCardObject.close();
-          })
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => popupAddCardObject.renderLoading(false));
     },
 
     popupAddCardObject = new PopupWithForm(
